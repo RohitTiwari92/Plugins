@@ -1,0 +1,11 @@
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\bin\Debug\PluginPowerPoint.dll
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\bin\Debug\PluginPowerPoint.pdb
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\bin\Debug\PluginPowerPoint.dll.manifest
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\bin\Debug\PluginPowerPoint.vsto
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.csprojResolveAssemblyReference.cache
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.Properties.Resources.resources
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.csproj.GenerateResource.Cache
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.dll
+c:\users\rohit\documents\visual studio 2013\Projects\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.pdb
