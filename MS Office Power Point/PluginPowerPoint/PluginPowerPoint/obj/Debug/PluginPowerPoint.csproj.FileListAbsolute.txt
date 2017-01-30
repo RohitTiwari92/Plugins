@@ -20,3 +20,8 @@ F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debu
 F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.csproj.GenerateResource.Cache
 F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.dll
 F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.pdb
+F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\Display.baml
+F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\Display.g.cs
+F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint_MarkupCompile.cache
+F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.g.resources
+F:\Rohit\Plugin\MS Office Power Point\PluginPowerPoint\PluginPowerPoint\obj\Debug\PluginPowerPoint.BackPane.resources

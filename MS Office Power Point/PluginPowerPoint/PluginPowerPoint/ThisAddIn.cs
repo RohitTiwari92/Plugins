@@ -10,14 +10,31 @@ namespace PluginPowerPoint
 {
     public partial class ThisAddIn
     {
+        private BackPane panebase;
+        private static Microsoft.Office.Tools.CustomTaskPane TaskPaneObj;
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            panebase = new BackPane();
+            TaskPaneObj = this.CustomTaskPanes.Add(panebase, "SmartArt Count");
+            TaskPaneObj.Visible = false;
+           // TaskPaneObj.VisibleChanged += TaskPane_VisibleChanged; 
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }
+        void TaskPane_VisibleChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
 
+        public Microsoft.Office.Tools.CustomTaskPane TaskPane
+        {
+            get
+            {
+                return TaskPaneObj;
+            }
+        }
 
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
