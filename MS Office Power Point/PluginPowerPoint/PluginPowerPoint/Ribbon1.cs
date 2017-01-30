@@ -50,7 +50,8 @@ namespace PluginPowerPoint
 
         public void AddAnimationButtonClick(Office.IRibbonControl control)
         {
-            MessageBox.Show(Globals.ThisAddIn.Application.ActivePresentation.Slides.Count.ToString());
+            counter contobj = new counter();
+            MessageBox.Show( contobj.detectSmartArt( Globals.ThisAddIn.Application.ActivePresentation.Slides).ToString());
         }
 
         #region Ribbon Callbacks
