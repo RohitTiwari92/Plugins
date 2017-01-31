@@ -162,6 +162,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="AddTable.cs" />
     <Compile Include="BackPane.cs">
       <SubType>UserControl</SubType>
     </Compile>

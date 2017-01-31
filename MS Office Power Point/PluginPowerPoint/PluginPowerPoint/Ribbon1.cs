@@ -49,13 +49,14 @@ namespace PluginPowerPoint
         #endregion
 
         public void AddAnimationButtonClick(Office.IRibbonControl control)
-        {
-           
-            counter contobj = new counter();
+        {           
+           counter contobj = new counter();
            int count= contobj.detectSmartArt( Globals.ThisAddIn.Application.ActivePresentation.Slides);
            Display.counter.Content= count;
            Display.counter.UpdateLayout();
            Globals.ThisAddIn.TaskPane.Visible = true;
+           AddTable add = new AddTable();
+           add.Add(Globals.ThisAddIn.Application.ActivePresentation.Slides);
         }
 
         #region Ribbon Callbacks
