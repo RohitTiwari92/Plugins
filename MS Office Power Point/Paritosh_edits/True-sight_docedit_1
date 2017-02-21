@@ -217,3 +217,241 @@ For example, if you want to check TextFrame in a shape:
            { 
                extractInfo(shape); 
            } 
+ 
+ Let’s see a live example:  
+In this example we will show the total number of different shapes in a PowerPoint file. 
+ What we need for this  
+Every slide object  
+Every shape object  
+  
+First try yourself .. 
+.. 
+.. 
+.. 
+.. 
+.. 
+Ok then hope you did it. 
+Append your project  
+Note: I am not going to maintain code quality here. 
+So add a class here named counter (as per your wish) 
+Create a method which takes Slides interface object as an argument. 
+Now follow the steps:  
+Iterate every slide  
+Use recursive method to extract every single shape object  
+Check for three shapes SmartArt, group, Placeholder  
+If it's SmartArt count the nodes  
+If it's group or placeholder extract all the shapes  
+Again start with step 3  
+  
+Here is the code for this  
+class counter 
+    { 
+         
+        public int detectSmartArt(Slides slides) 
+        { 
+            int count = 0; 
+            GetCount(slides, ref count); 
+            return count; 
+        } 
+  
+         void GetCount(Slides slides,ref int count) 
+        { 
+            foreach (Slide slide in slides) 
+            { 
+                extractSlideInfo( slide,ref count); 
+            } 
+             
+        } 
+  
+        private void extractSlideInfo(Slide slide,ref int count) 
+        { 
+            foreach (PPT.Shape shape in slide.Shapes) 
+                extractInfoFromShape(shape,ref count); 
+            
+        } 
+  
+        private void extractInfoFromShape(PPT.Shape shape,ref int count) 
+        { 
+            if (shape.Type == MsoShapeType.msoGroup) 
+            { 
+                GetDataFromGroupItem(shape,ref count); 
+            } 
+            else if (shape.Type == MsoShapeType.msoSmartArt) 
+            { 
+                GetDataFromSmartArt(shape,ref count); 
+            } 
+            else if (shape.Type == MsoShapeType.msoPlaceholder && shape.PlaceholderFormat.ContainedType == MsoShapeType.msoSmartArt) 
+            { 
+                GetDataFromPlaceHolder(shape,ref count); 
+            } 
+             
+        } 
+  
+  
+        private void GetDataFromPlaceHolder(PPT.Shape shape,ref int count) 
+        { 
+            try 
+            { 
+                GetDataFromSmartArt(shape, ref count); 
+            } 
+            catch 
+            { 
+                
+                    try 
+                    { 
+                        GetDataFromGroupItem(shape, ref count); 
+                        
+                    } 
+                    catch 
+                    { 
+  
+                    } 
+                 
+            } 
+        } 
+  
+        private void GetDataFromSmartArt(PPT.Shape shape,ref int count) 
+        { 
+             
+                SmartArtNodes nodes = shape.SmartArt.AllNodes; 
+  
+                foreach (SmartArtNode node in nodes) 
+                { 
+                    count++; 
+                } 
+            
+        } 
+  
+        private void GetDataFromGroupItem(PPT.Shape shape,ref int count) 
+        { 
+            foreach (PPT.Shape myShape in shape.GroupItems) 
+                extractInfoFromShape(myShape,ref count); 
+        } 
+    } 
+  
+And ribbon.cs class replace this method  
+   public void AddAnimationButtonClick(Office.IRibbonControl control) 
+        { 
+            counter contobj = new counter(); 
+            MessageBox.Show( contobj.detectSmartArt( Globals.ThisAddIn.Application.ActivePresentation.Slides).ToString()); 
+        } 
+  
+    
+  
+So what’s your count ? 
+  
+  
+  
+  
+  
+  
+  
+What if you want to show your output in better way? 
+We can use a pane for this. 
+Pane is used to display information and also for user interaction. 
+Here's how we use a pane..  
+Add a wpf user control in your project  
+Add a label in this control  
+In your xaml.cs file create a public label object  
+Like : public static Label counter ; 
+Initialize this object with your UI label object  
+Bind your UI label with this object. 
+  
+Code : 
+XAML CODE 
+<UserControl x:Class="PluginPowerPoint.Display" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             mc:Ignorable="d"  
+             d:DesignHeight="300" d:DesignWidth="300"> 
+    <Grid Background="#FFFDFDFD"> 
+        <Label x:Name="count"  HorizontalAlignment="Left" Margin="55,74,0,0" VerticalAlignment="Top" Height="142" Width="171" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding counter}"/> 
+    </Grid> 
+</UserControl> 
+  
+C# code XAML.CS file 
+  public static Label counter ; 
+        public Display() 
+        { 
+            InitializeComponent(); 
+            counter = count; 
+        } 
+  
+Now add WinForm User control  in your project  
+Build your project. 
+You can see your the wpf control above in your toolbox. Dock it into your winform controller. 
+Now add two private properties in your thisaddin class  
+private BackPane panebase; 
+private static Microsoft.Office.Tools.CustomTaskPane TaskPaneObj; 
+For controlling task pane from the outside you have to make a public property of the taskpane object. 
+    public Microsoft.Office.Tools.CustomTaskPane TaskPane 
+        { 
+            get 
+            { 
+                return TaskPaneObj; 
+            } 
+        } 
+Now you have to initialize this pane at the time of plugin startup. There is a method named ThisAddIn_Startup in thisaddin class. 
+Initialize all the objects in ThisAddIn_Startup method 
+panebase = new BackPane(); 
+TaskPaneObj = this.CustomTaskPanes.Add(panebase, "SmartArt Count"); 
+TaskPaneObj.Visible = false; 
+As you can see at time of taskpane object initialization you have to pass one winform control object and name of the task pane. 
+Now come to ribbon.cs file. 
+Go to cbutton_click_event method (“AddAnimationButtonClick”)  
+Use wpf public label and set the value of the label. 
+Update the layout. 
+And set the visibility of the taskpane to true with the help of global object.  
+CODE: 
+      counter contobj = new counter(); 
+           int count= contobj.detectSmartArt( Globals.ThisAddIn.Application.ActivePresentation.Slides); 
+           Display.counter.Content= count; 
+           Display.counter.UpdateLayout(); 
+           Globals.ThisAddIn.TaskPane.Visible = true; 
+  
+Now run your program .. 
+Now we have to write in the slide 
+  
+It’s the simplest part of this tutorial. 
+Lets take an example to add a table in every slide. 
+We need:  
+Slide object  
+Position of shape  
+You already have the slide object  
+Position of the shape is defined as (Left,Top), meaning distance of left-top corner of the shape from left-top corner of the slide.  
+(left,top) of slide  
+So add a class in your project and create a method which takes the slide objects. 
+Iterate all the slides and add this syntax :  
+       Microsoft.Office.Interop.PowerPoint.Shape pptShape = slide.Shapes.AddTable(i, i); 
+Its done. 
+  
+  
+Code: 
+    class AddTable 
+    { 
+        public void Add(Slides slides) 
+        { 
+             
+            GetCount(slides); 
+            
+        } 
+  
+        void GetCount(Slides slides) 
+        { 
+            int i=1; 
+            foreach (Slide slide in slides) 
+            { 
+                 
+                Microsoft.Office.Interop.PowerPoint.Shape pptShape = slide.Shapes.AddTable(i, i); 
+                i++; 
+                if(i==7) 
+                { 
+                    i = 1; 
+                } 
+                
+            } 
+  
+        } 
+    } 
