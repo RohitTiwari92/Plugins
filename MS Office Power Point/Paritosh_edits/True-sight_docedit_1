@@ -1,0 +1,219 @@
+MS Office Power Point Plugin 
+  
+Prerequisites:  
+Visual Studio (I am working on VS-2013). 
+MS Power Point (I am working on MS-Power Point 2013). 
+Working knowledge of  C#. 
+ 
+Index (What I am going to cover): 
+Setting up your power point plugin project in visual studio. 
+Showing your plugin in power point plugin tab. 
+Changing the image of your icon.  
+Using the resource folder.  
+Invoking your methods.  
+Displaying the result on power point. 
+Reading the slide data.  
+Writing a power point file. 
+  
+  
+How to set up a power point plugin project in visual studio? 
+  
+File => New Project => Templates => Visual C# => Office/Share Point => PowerPoint 2013 Add-In (check screenshot) => Project Setup  
+  
+  
+  
+How to show your plugin in power point plugin tab? 
+  
+For this you need to create a ribbon. 
+Right Click on your project => Select add new item => Ribbon (XML) (check screenshot) => ribbon 
+After adding this, visual studio will open a <ribbon name>.cs file and when you read the comment you will get to know what to do next.  
+Example  
+// TODO:  Follow these steps to enable the Ribbon (XML) item: 
+  
+// 1: Copy the following code block into the "ThisAddin", "ThisWorkbook", or "ThisDocument" class. 
+  
+//  protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject() 
+//  { 
+//      return new Ribbon1(); 
+//  } 
+  
+// 2. Create callback methods in the "Ribbon Callbacks" region of this class to handle user actions, such as clicking a button.  
+// Note: If you have exported this Ribbon from the Ribbon designer,  move your code from the event handlers to the callback methods and modify the code to work with the Ribbon extensibility (RibbonX) programming model. 
+  
+// 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.   
+  
+// For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help. 
+  
+Start with copying the code from the first comment and pasting it into ThisAddin class  
+ 
+2. Next we will add a button in the ribbon to trigger an event from PowerPoint   
+Paste this code into your xml or you can write your own code: D 
+<?xml version="1.0" encoding="UTF-8"?> 
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load"> 
+ <ribbon> 
+   <tabs> 
+     <tab idMso="TabAddIns"> 
+       <group id="Mygroup" label="TestAdd-in" > 
+         <button id="AddAnimationButton" 
+          label="Check" 
+          size="large" 
+          getImage="GetImage" 
+          supertip="Check" 
+          enabled="true" 
+          onAction="AddAnimationButtonClick"/> 
+       </group> 
+     </tab> 
+   </tabs> 
+ </ribbon> 
+</customUI> 
+  
+Now run the program. We see one ADD-IN tab and inside this tab a button named "check". 
+Here the getImage tag calls a function "GetImage" to get the icon image. Here's how it works: 
+We have an inbuilt resource file. This file can save any object in XML format. 
+So first, we need to insert the icon file in the resource file. 
+Type resource in your solution explorer search box.  
+Now we see the Resources.resx file. Open it. 
+Click on Add Resources => add existing file and add one image file. 
+Now we have to implement the "GetImage" method. 
+This is a ribbon function, so we have to implement this into Ribbon.cs file. 
+This function takes one argument which is Microsoft.Office.Core.IRibbonControl   
+And in the end we have to return a bitmap file.  
+Example: 
+    public Bitmap GetImage(Office.IRibbonControl control) 
+     { 
+     return new Bitmap(PluginPowerPoint.Properties.Resources.icon); 
+       } 
+Now run the program and see the result.  
+It’s not working. That's because we didn’t implement an action on this button. 
+We can see “ onAction="AddAnimationButtonClick"/>  “ line on ribbon.xml file. This is the trigger point and we have to implement this method in our ribbon.cs file. 
+Let's say we want to display a message box saying “Hello world”. 
+Copy and paste the following method in your ribbion.cs file. This function takes IRibbonControl interface object as an argument to gain control.  
+ public void AddAnimationButtonClick(Office.IRibbonControl control) 
+       { 
+         ​​  MessageBox.Show("Hello World"); 
+       } 
+Now run the code ..  
+..  
+..  
+.. 
+Success! 
+Deep Dive Into your code 
+  
+Till now we have only set up our project. Now the actual work starts... 
+What we need  
+1. Slide handle of every slide  
+2. Handle of every object in the every slide  
+For the slide handle, you need:  
+Microsoft.Office.Interop.PowerPoint.Slides   object  
+How can you get this? 
+It’s one line code only: 
+Globals.slideQAddIn.Application.ActivePresentation.Slides  (in power point plugin only) 
+This syntax will give you array of slide objects. 
+Let’s tinker with it. 
+Previously we have shown “Hello World ” on button click. Can we display the number of slides instead? 
+If syntax above gives us an array then we can show the array count. So replace your code with this: 
+  
+       public void AddAnimationButtonClick(Office.IRibbonControl control) 
+       { 
+           MessageBox.Show(Globals.ThisAddIn.Application.ActivePresentation.Slides.Count.ToString()); 
+       }   
+  
+Now run the application   
+  
+Now we need the handle of every object in each slide. 
+For this you have to extract shapes property from the slide object, and iterate: 
+  
+ foreach (PPT.Shape shape in slide.Shapes) 
+               { 
+} 
+  
+Where PPT is “using PPT = Microsoft.Office.Interop.PowerPoint;”  
+ 
+So now you have the shape objects. But what if you have a group shape (group of many shapes)? The code above will only give you a group object. Also, what if you have placeholder in your slide?  
+ 
+Placeholder is the worst case. Why? 
+If you have group object you can easily inherit objects with the help of a single loop.  But if you have a placeholder you cannot. First you need to know the type of object inside the placeholder and then you can fetch the object. 
+  
+So what should we do? 
+1. We have to use recursion for the extraction of every single shape in the slide.  
+2. We should know how to compare type of object. 
+  
+We won’t be discussing recursion here. Let’s start with point number 2. 
+To get the type of shape you need to visit https://msdn.microsoft.com/en-us/library/office/ff860759.aspxpage. And you have to search for enum MsoTriState. 
+Let’s see how it works.  
+First we will see how to Extract shape from group object  
+There are two ways to do this: 
+  
+1. Ungroup all the shapes.  
+2. With simple iteration of the shape object property.  
+First we have to judge whether its a group item or not  
+You can do this with MsoShapeType as I already mentioned in the link  
+Example: 
+if (shape.Type == MsoShapeType.msoGroup) 
+           { 
+           } 
+"Type" is the property of shape object and "MsoShapeType" is an enum.  
+After this condition you have to iterate all the shapes contained by shape object with the help of “GroupItems” property.   
+Example  
+foreach (PPT.Shape myShape in shape.GroupItems) 
+{ 
+}  
+Now come to the second shape (worst case) “Placeholder”  
+Firstly you have to judge the type of object/shape of the placeholder.  
+You need to use the same approach as mentioned earlier. 
+Here is a function which will cover most of the shapes. 
+private void extractInfoFromShape(PPT.Shape shape) 
+       { 
+           if (shape.Type == MsoShapeType.msoGroup) 
+           { 
+           } 
+           else if (shape.Type == MsoShapeType.msoSmartArt  ) 
+           { 
+  
+           } 
+           else if (shape.Type == MsoShapeType.msoTable) 
+           { 
+                
+           } 
+           else if (shape.Type == MsoShapeType.msoPlaceholder) 
+           { 
+            } 
+           if (shape.HasTextFrame == MsoTriState.msoTrue) 
+           { 
+           } 
+       } 
+Ok now you can check the type of shape now what right now I don’t know how to extract shape directly so you have to hit and trial for every shape. 
+Like :  
+    private void GetDataFromPlaceHolder(PPT.Shape shape) 
+       { 
+           try 
+           { 
+               GetDataFromSmartArt(shape); 
+           } 
+           catch 
+           { 
+               try 
+               { 
+                   GetDataFromTable(shape); 
+               } 
+               catch 
+               { 
+                   try 
+                   { 
+                       GetDataFromGroupItem(shape); 
+                   } 
+                   catch 
+                   { 
+  
+                   } 
+               } 
+           } 
+       } 
+  
+  
+To check what type of shape the object contains, you can use “Has” property.  
+For example, if you want to check TextFrame in a shape: 
+   if (shape.HasTextFrame == MsoTriState.msoTrue) 
+           { 
+               extractInfo(shape); 
+           } 
