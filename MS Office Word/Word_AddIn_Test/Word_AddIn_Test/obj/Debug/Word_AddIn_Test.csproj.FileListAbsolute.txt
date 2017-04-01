@@ -1,0 +1,11 @@
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.dll
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.pdb
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.dll.manifest
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.vsto
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.csprojResolveAssemblyReference.cache
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.Properties.Resources.resources
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.csproj.GenerateResource.Cache
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.dll
+c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.pdb
