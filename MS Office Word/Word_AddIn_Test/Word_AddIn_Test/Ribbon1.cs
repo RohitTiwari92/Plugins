@@ -83,6 +83,11 @@ namespace Word_AddIn_Test
         public void AddAnimationButtonClick(Office.IRibbonControl control)
         {
             System.Windows.Forms.MessageBox.Show("Hello World");
+            GetSelectedText GetTextObj = new GetSelectedText(Globals.ThisAddIn.Application.Selection);
+            string text = GetTextObj.getSelectedText();
+            tables tblobj = new tables(Globals.ThisAddIn.Application.ActiveDocument.Shapes);
+            int totalshapes = tblobj.GetAllShapesCount();
+            System.Windows.Forms.MessageBox.Show(totalshapes.ToString());
         }
     }
 }

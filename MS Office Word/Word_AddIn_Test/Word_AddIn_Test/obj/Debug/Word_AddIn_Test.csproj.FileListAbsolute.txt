@@ -9,3 +9,14 @@ c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_
 c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.csproj.GenerateResource.Cache
 c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.dll
 c:\users\rohit\documents\visual studio 2013\Projects\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.pdb
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.dll
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.pdb
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.dll.manifest
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Word_AddIn_Test.vsto
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.csprojResolveAssemblyReference.cache
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.Properties.Resources.resources
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.csproj.GenerateResource.Cache
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.dll
+F:\Rohit\Plugin\MS Office Word\Word_AddIn_Test\Word_AddIn_Test\obj\Debug\Word_AddIn_Test.pdb
